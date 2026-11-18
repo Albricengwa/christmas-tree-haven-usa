@@ -1134,6 +1134,172 @@ ul, ol { margin: 0; padding: 0; }
   [data-reveal] { opacity: 1; transform: none; }
 }
 
+/* =========================================================================
+   MOBILE REFINEMENTS
+   ========================================================================= */
+
+html { -webkit-tap-highlight-color: transparent; }
+
+/* Balance long headings so they wrap evenly on narrow screens */
+h1, h2, h3, .hero-title, .h2, .display { text-wrap: balance; }
+
+/* The drawer must never sit on top of its own close button */
+.nav { z-index: 90; }
+.brand, .nav-toggle { position: relative; z-index: 121; }
+
+body.nav-open::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 33, 24, 0.45);
+  z-index: 85;
+  pointer-events: none;
+}
+
+/* Comfortable tap targets everywhere */
+.filters button { min-height: 44px; }
+.nav a { min-height: 46px; display: flex; align-items: center; }
+.btn-link { min-height: 44px; }
+
+/* Price table must never break the layout on a phone */
+.split > *,
+.contact-grid > *,
+.pdp-grid > * { min-width: 0; }
+.price-panel { overflow-x: auto; -webkit-overflow-scrolling: touch; min-width: 0; }
+.price-table { min-width: 270px; }
+
+@media (max-width: 620px) {
+  .price-panel { padding: 1.15rem 1rem; }
+  .price-table { min-width: 230px; font-size: 0.86rem; }
+  .price-table th { font-size: 0.6rem; letter-spacing: 0.16em; }
+  .price-table .price { font-size: 1.15rem; }
+}
+
+/* Touch devices: show the enquiry hint permanently, drop hover lifts */
+@media (hover: none) {
+  .product-media-hint { opacity: 1; transform: none; }
+  .product-card:hover { transform: none; box-shadow: none; }
+  .product-card:hover .product-media img { transform: none; }
+  .value-card:hover { transform: none; }
+}
+
+/* Pressed feedback that reads on touch screens */
+.btn:active { transform: scale(0.985); }
+
+/* Sticky mobile action bar */
+.mobile-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 95;
+  display: none;
+  gap: 0.6rem;
+  padding: 0.6rem 0.9rem calc(0.6rem + env(safe-area-inset-bottom));
+  background: rgba(250, 247, 241, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -8px 30px rgba(10, 33, 24, 0.1);
+}
+.mobile-bar .btn {
+  flex: 1 1 0;
+  min-height: 46px;
+  padding: 0.8rem 0.7rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+}
+.mobile-bar::after { content: ""; position: fixed; } /* keeps bar above iOS toolbar */
+
+@media (max-width: 960px) {
+  .mobile-bar { display: flex; }
+  body { padding-bottom: calc(78px + env(safe-area-inset-bottom)); }
+
+  /* A closed drawer must not sit off-canvas creating horizontal scroll */
+  .nav {
+    display: none;
+    transform: none;
+  }
+  .nav.is-open {
+    display: flex;
+    animation: drawerIn 0.38s var(--ease) both;
+  }
+
+  /* keep the decorative frame inside the viewport on narrow screens */
+  .split-media::after { inset: 0.7rem 0.7rem -0.7rem 0.7rem; }
+}
+
+@keyframes drawerIn {
+  from { transform: translateX(56px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* Tablet & phone rhythm */
+@media (max-width: 900px) {
+  .hero-frame, .hero-frame img { min-height: 360px; }
+  .hero-plate { font-size: 0.68rem; }
+  .split-media img { aspect-ratio: 4 / 3; }
+  .pdp-grid { gap: 1.8rem; }
+}
+
+@media (max-width: 620px) {
+  .hero-frame { padding: 0.6rem; }
+  .hero-frame img, .hero-frame { min-height: 300px; }
+  .hero-plate { left: 0.6rem; right: 0.6rem; bottom: 0.6rem; padding: 0.75rem 0.9rem; }
+
+  .btn { padding: 1rem 1.5rem; font-size: 0.74rem; letter-spacing: 0.14em; }
+  .btn-row { gap: 0.7rem; }
+  .btn-row .btn { flex: 1 1 100%; }
+  .btn-row .btn-link { flex: 0 1 auto; }
+
+  .section-head { margin-bottom: 2rem; }
+  .lead { font-size: 1rem; line-height: 1.75; }
+
+  .product-body { padding: 1.3rem 1.2rem 1.2rem; }
+  .product-price { font-size: 1.4rem; }
+  .product-name { font-size: 1.3rem; }
+  .product-summary { font-size: 0.9rem; }
+  .product-avail { margin-top: 0.7rem; }
+
+  .gallery { gap: 0.6rem; }
+  .pdp-title { font-size: 1.9rem; }
+  .pdp-price { font-size: 2rem; }
+  .pdp-actions .btn { width: 100%; }
+  .spec-list li { padding: 0.8rem 0; font-size: 0.88rem; }
+  .check-list li { font-size: 0.9rem; }
+
+  .accordion-trigger { padding: 1.15rem 0; font-size: 1.06rem; }
+
+  .info-list li { flex-direction: column; align-items: flex-start; gap: 0.15rem; }
+  .info-list .v { text-align: left; }
+
+  .breadcrumb { padding-top: 1.1rem; font-size: 0.62rem; letter-spacing: 0.14em; }
+  .messenger-card { padding: 1.4rem; gap: 1.1rem; }
+  .messenger-card h2, .messenger-card h3 { font-size: 1.25rem; }
+  .mm-mark { display: none; }
+
+  .filters { gap: 0.5rem; }
+  .filters button { flex: 1 1 auto; padding: 0.65rem 1rem; }
+
+  .footer-bottom { font-size: 0.72rem; }
+  .value-card { padding: 1.7rem 1.4rem; }
+}
+
+@media (max-width: 380px) {
+  .brand-sub { display: none; }
+  .hero-title { font-size: 2.3rem; }
+  .hero-meta { font-size: 0.62rem; gap: 0.8rem 1.2rem; }
+  .product-name { font-size: 1.24rem; }
+  .mobile-bar .btn { font-size: 0.7rem; letter-spacing: 0.04em; padding-inline: 0.5rem; }
+  .price-table { font-size: 0.8rem; }
+}
+
+/* Landscape phones: keep the hero from eating the viewport */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-frame, .hero-frame img { min-height: 240px; }
+  .hero-inner { padding-block: 2rem; }
+}
+
 /* ── Print ──────────────────────────────────────────────────────────── */
 @media print {
   .site-header, .site-footer, .announce, .strip, .btn { display: none !important; }

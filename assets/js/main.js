@@ -295,14 +295,39 @@
       }
     });
 
+    const closeNav = function (refocus) {
+      nav.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("nav-open");
+      if (refocus) toggle.focus();
+    };
+
     document.addEventListener("keydown", function (event) {
       if (event.key === "Escape" && nav.classList.contains("is-open")) {
-        nav.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
-        document.body.classList.remove("nav-open");
-        toggle.focus();
+        closeNav(true);
       }
     });
+
+    // Tapping outside the drawer closes it (common phone behaviour).
+    document.addEventListener("click", function (event) {
+      if (!nav.classList.contains("is-open")) return;
+      if (nav.contains(event.target) || toggle.contains(event.target)) return;
+      closeNav(false);
+    });
+  }
+
+  /* ── Sticky mobile action bar ──────────────────────────────────────── */
+  function injectMobileBar() {
+    if (document.querySelector(".mobile-bar")) return;
+
+    const bar = document.createElement("div");
+    bar.className = "mobile-bar";
+    bar.setAttribute("aria-label", "Quick actions");
+    bar.innerHTML =
+      '<a class="btn btn-gold" data-messenger="Hello Christmas Tree Haven USA, I would like to ask about your Christmas trees.">Message Us</a>' +
+      '<a class="btn btn-outline" href="' + BASE + 'shop.html">Shop Trees</a>';
+
+    document.body.appendChild(bar);
   }
 
   /* ── FAQ accordion ─────────────────────────────────────────────────── */
@@ -337,6 +362,7 @@
     wireHeader();
     wireAccordions();
     stampYear();
+    injectMobileBar();
     applyMessengerLinks();
     setupReveal();
   }
