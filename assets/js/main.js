@@ -78,7 +78,7 @@
     article.setAttribute("data-reveal", "");
 
     article.innerHTML =
-      '<a class="product-media" aria-label="Ask about the ' + product.name + ' on Messenger">' +
+      '<a class="product-media" aria-label="Ask about ' + product.name + ' on Messenger">' +
         '<img src="' + BASE + primary.src + '" alt="' + primary.alt + '" width="700" height="840" loading="lazy" decoding="async">' +
         (product.badge ? '<span class="product-badge">' + product.badge + "</span>" : "") +
         '<span class="product-media-hint">Enquire on Messenger</span>' +
@@ -180,7 +180,7 @@
         .map(function (img, index) {
           return (
             '<a class="gallery-shot' + (index === 0 ? " is-main" : "") + '" href="' + ask + '" ' +
-            'target="_blank" rel="noopener noreferrer" aria-label="Enquire about the ' + product.name + ' on Messenger">' +
+            'target="_blank" rel="noopener noreferrer" aria-label="Enquire about ' + product.name + ' on Messenger">' +
             '<img src="' + BASE + img.src + '" alt="' + img.alt + '" width="900" height="1100" ' +
             (index === 0 ? 'loading="eager"' : 'loading="lazy"') + ' decoding="async">' +
             "</a>"
